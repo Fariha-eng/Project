@@ -16,7 +16,7 @@ ALLOCATED
  
 ASSESSOR’S COMMENTS  
  
-                         Deliverable 1: Client-Side Architecture
+                         **Deliverable 1: Client-Side Architecture**
 
 INTRODUCTION
 Hospitals and clinics that rely on manual, first-come-first-served queues often create long, unpredictable waiting times for patients and disorganised patient flow for doctors. The Smart Queue Management System addresses this problem by giving patients a simple way to see available doctors, generate a digital token, and monitor their live position in the queue, while giving doctors a dashboard to call the next patient and reset the queue at the end of a session.
@@ -113,11 +113,11 @@ When the Reset Queue button is clicked, the queue is reset, and the current toke
 ## code14
 ![code14](screenshots/picture14.PNG)
 
-Deliverable 2: Server-Side Architecture
+                            **Deliverable 2: Server-Side Architecture**
 
 This backend was developed using Express.js and MongoDB to support the Vue.js frontend. The backend handles API requests, stores data in MongoDB, manages authentication, and performs CRUD operations for doctors, patients, admins and tokens.
 
-1.	Technologies Used
+**1.	Technologies Used**
 
 Node.js → Used as the runtime environment to execute the backend application.
 
@@ -135,18 +135,18 @@ dotenv → Used to securely manage environment variables like database URLs and 
 
 CORS →Used to allow secure communication between the Vue.js frontend and Express.js backend.
 
-2.	Backend Structure
+**2.Backend Structure**
 
 The server contains config, middleware, models, routes and server.js. The config folder contains the database connection. Models define MongoDB collections. Routes contain API endpoints. Middleware is used for authentication and role checking.
 
-3.	Database Connection 
+**3.Database Connection **
 
 The application connects to MongoDB through Mongoose, with the connection string stored in the .env file as MONGO_URI. We wrote a separate db.js file containing a connectDB() function instead of putting the connection code directly in server.js, since this is a common best practice that keeps the connection logic reusable and easy to find. The function is asynchronous because mongoose.connect() returns a promise. Inside a try/catch block, the app connects using the MONGO_URI, if the connection fails, the error is logged and process.exit(1) is called so the server does not start running with a broken database connection. This way, if something is wrong with the database (wrong URI, network issue, etc.), the problem is caught immediately instead of the app silently failing later.
 
 ## code15
 ![code15](screenshots/picture15.PNG)
 
-4.	Database Schema (Models)
+**4.Database Schema (Models)**
 
 Admin → The Admin model stores the details of system administrators. Administrators are responsible for managing the overall system, including adding or managing doctors and monitoring the queue management process. Every administrator has unique login credentials to ensure that only authorized users can access administrative features. Passwords are stored in encrypted form to improve security.
 
@@ -160,11 +160,11 @@ Token → The Token model manages the digital queue system. Whenever a patient b
 ## code16
 ![code16](screenshots/picture16.PNG)
 
-5.	Authentication & Authorization
+**5.Authentication & Authorization**
 
 JWT authenticates users. auth.js verifies tokens while role.js checks user roles before allowing access to protected routes.
 
-6.	API routes/ Endpoints
+**6.API routes/ Endpoints**
 
 Endpoints	      Method	         Purpose
 /api/register	  POST	         Register new user
@@ -174,16 +174,16 @@ Endpoints	      Method	         Purpose
 /api/tokens	      GET	          Retrieve tokens
 /api/admin	      GET	              Admin 
  
-7.	Security Practice
+**7.Security Practice**
 
 Several security mechanisms were implemented to protect the backend. User passwords are hashed using bcryptjs before being saved to MongoDB so that original passwords cannot be recovered. Sensitive configuration values such as the MongoDB connection string and JWT secret are stored inside the .env file instead of hardcoding them in the source code. JWT authentication ensures that only authenticated users can access protected APIs, while role-based authorization restricts administrative functions to authorized users only. CORS is enabled to allow secure communication between the frontend and backend while preventing unauthorized cross-origin requests. 
 
-ARCHITECTURE TREE (With Backend)
+**ARCHITECTURE TREE (With Backend)**
 
 ## code17
 ![code17](screenshots/picture17.PNG)
 
-Conclusion
+**Conclusion**
 
 The Smart Queue Management System was successfully developed by integrating both the frontend and backend technologies. The frontend provides an interactive and user-friendly interface for patients and doctors, while the backend efficiently handles authentication, database management, API requests, and queue operations. By combining Vue.js, Express.js, and MongoDB, the system offers a secure and organized solution for managing hospital queues. Overall, this project meets its objectives by improving the appointment process, reducing manual effort, and providing a scalable foundation for future enhancements.
 
